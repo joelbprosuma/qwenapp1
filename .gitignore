@@ -2,73 +2,56 @@
 # Dependencies
 node_modules/
 
-# Build artifacts
-dist/
-build/
-coverage/
-.nyc_output/
+# Logs and temp files
+*.log
+*.tmp
 
-# Environment variables
+# Environment
 .env
 .env.local
 .env.*
 
-# IDE and editor files
+# Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Logs
-*.log
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Python related
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
-*.so
-
-# Virtual environments
 venv/
 .venv/
-env/
-ENV/
+.env
+.env.local
+.env.*
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
 
-# TypeScript/JavaScript build output
-*.js.map
-*.tsbuildinfo
+# Build outputs
+dist/
+build/
+target/
+.nyc_output/
+coverage/
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
+# OS generated files
+.DS_Store
+Thumbs.db
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
-
-# Compression and archives
+# Compression
 *.zip
-*.tar
 *.gz
+*.tar
 *.tgz
 *.bz2
 *.xz
 *.7z
 *.rar
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
 *.zst
 *.lz4
 *.lzh
@@ -76,23 +59,11 @@ ENV/
 *.arj
 *.rpm
 *.deb
-
-# NestJS specific
-.nest-cli/
-.nest/
-coverage/
-
-# TypeORM
-ormconfig.json
-
-# Backend specific
-backend/node_modules/
-backend/dist/
-backend/coverage/
-backend/*.log
-backend/.env
-backend/.env.local
-backend/.env.*
-backend/.vscode/
-backend/.idea/
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
