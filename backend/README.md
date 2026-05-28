@@ -1,41 +1,53 @@
-# Gestion Intelligente de Factures & Dépenses IA - Backend
+# Facture IA - Backend
 
-Backend NestJS pour l'application de gestion de factures et dépenses avec IA.
+Backend NestJS pour la gestion intelligente de factures et dépenses avec IA, conçu pour les PME en Côte d'Ivoire.
 
 ## Fonctionnalités
 
-- **Authentification** : Inscription/Connexion avec JWT
-- **OCR Intelligent** : Extraction automatique des données de factures via OpenAI
-- **Classification IA** : Catégorisation automatique des dépenses
-- **Gestion des factures** : CRUD complet avec statuts et rappels
-- **Gestion des dépenses** : Suivi avec classification automatique
-- **Analytics** : Tableaux de bord et rapports
-- **Export** : PDF et Excel (à implémenter)
+- 📸 **OCR de factures** - Extraction automatique des données depuis des photos/factures
+- 🤖 **Classification IA** - Catégorisation automatique des dépenses
+- 📊 **Dashboard analytics** - Statistiques et rapports financiers
+- 📄 **Export PDF/Excel** - Génération de rapports
+- 🔔 **Rappels de paiement** - Notifications pour factures échues
+- 💬 **Assistant comptable** - Conseils financiers personnalisés
 
 ## Installation
 
 ### Prérequis
 
-- Node.js >= 18
-- PostgreSQL >= 14
+- Node.js 18+
+- PostgreSQL 14+
 - npm ou yarn
 
-### Étapes
+### Configuration
 
-1. Installer les dépendances :
+1. Copiez le fichier d'environnement :
+```bash
+cp .env.example .env
+```
+
+2. Modifiez `.env` avec vos paramètres :
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=votre_mot_de_passe
+DB_NAME=facture_ia
+JWT_SECRET=votre_secret_jwt_securise
+OPENAI_API_KEY=sk-votre-cle-openai (optionnel)
+```
+
+3. Installez les dépendances :
 ```bash
 npm install
 ```
 
-2. Configurer l'environnement :
+4. Créez la base de données :
 ```bash
-cp .env.example .env
-# Modifier les valeurs dans .env selon votre configuration
+createdb facture_ia
 ```
 
-3. Démarrer la base de données PostgreSQL
-
-4. Lancer le serveur en développement :
+5. Lancez le serveur en développement :
 ```bash
 npm run start:dev
 ```
@@ -45,73 +57,45 @@ L'API sera disponible sur `http://localhost:3001`
 ## API Endpoints
 
 ### Authentification
-- `POST /auth/register` - Inscription
+- `POST /auth/register` - Inscription utilisateur
 - `POST /auth/login` - Connexion
+
+### Factures
+- `POST /invoices` - Créer une facture (avec upload optionnel)
+- `GET /invoices` - Liste des factures
+- `GET /invoices/analytics` - Statistiques des factures
+- `GET /invoices/overdue` - Factures échues
+- `GET /invoices/:id` - Détails d'une facture
+- `PUT /invoices/:id/status` - Mettre à jour le statut
+- `DELETE /invoices/:id` - Supprimer une facture
+
+### Dépenses
+- `POST /expenses` - Créer une dépense
+- `GET /expenses` - Liste des dépenses
+- `GET /expenses/analytics` - Statistiques des dépenses
+- `GET /expenses/:id` - Détails d'une dépense
+- `PUT /expenses/:id` - Mettre à jour une dépense
+- `DELETE /expenses/:id` - Supprimer une dépense
+
+### IA
+- `POST /ai/extract-invoice` - Extraire les données d'une facture
+- `POST /ai/classify-expense` - Classifier une dépense
+- `GET /ai/accounting-advice` - Obtenir des conseils comptables
 
 ### Utilisateurs
 - `GET /users/profile` - Profil utilisateur
-- `PUT /users/profile` - Mise à jour profil
-- `GET /users/dashboard` - Dashboard
-
-### Factures
-- `POST /invoices` - Créer une facture (avec upload)
-- `GET /invoices` - Liste des factures
-- `GET /invoices/analytics` - Analytics factures
-- `GET /invoices/overdue` - Factures en retard
-- `GET /invoices/:id` - Détail facture
-- `PUT /invoices/:id/status` - Changer statut
-- `DELETE /invoices/:id` - Supprimer facture
-
-### Dépenses
-- `POST /expenses` - Créer une dépense (avec upload)
-- `GET /expenses` - Liste des dépenses
-- `GET /expenses/analytics` - Analytics dépenses
-- `GET /expenses/:id` - Détail dépense
-- `PUT /expenses/:id` - Modifier dépense
-- `DELETE /expenses/:id` - Supprimer dépense
-
-### IA
-- `POST /ai/extract-invoice` - Extraire données facture
-- `POST /ai/classify-expense` - Classifier dépense
-- `GET /ai/accounting-advice` - Conseils comptables
-
-## Structure du projet
-
-```
-src/
-├── common/
-│   ├── dto/          # Data Transfer Objects
-│   └── guards/       # Guards d'authentification
-├── entities/         # Entités TypeORM
-├── modules/
-│   ├── auth/         # Module authentification
-│   ├── users/        # Module utilisateurs
-│   ├── invoices/     # Module factures
-│   ├── expenses/     # Module dépenses
-│   └── ai/           # Module IA
-├── app.module.ts
-└── main.ts
-```
+- `PUT /users/profile` - Mettre à jour le profil
+- `GET /users/dashboard` - Dashboard utilisateur
 
 ## Stack Technique
 
 - **Framework** : NestJS
-- **Base de données** : PostgreSQL + TypeORM
-- **Authentification** : JWT + Passport
-- **IA** : OpenAI API (GPT-4o pour OCR, GPT-3.5 pour classification)
+- **Base de données** : PostgreSQL avec TypeORM
+- **Authentification** : JWT + bcrypt
+- **IA** : OpenAI GPT-4o (OCR) et GPT-3.5-turbo (classification)
 - **Upload** : Multer
 
-## Développement
-
-### Ajouter une clé OpenAI (optionnel)
-
-Pour activer les fonctionnalités IA réelles :
-1. Obtenez une clé API sur https://platform.openai.com
-2. Ajoutez-la dans `.env` : `OPENAI_API_KEY=sk-...`
-
-Sans clé API, le système utilise des données mockées pour le développement.
-
-### Catégories de dépenses supportées
+## Catégories de dépenses
 
 - alimentation
 - transport
@@ -122,6 +106,10 @@ Sans clé API, le système utilise des données mockées pour le développement.
 - marketing
 - autre
 
-## Licence
+## Devises
 
-MIT
+Par défaut : **XOF** (Franc CFA)
+
+## License
+
+ISC

@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './src/modules/auth/auth.module';
-import { UsersModule } from './src/modules/users/users.module';
-import { InvoicesModule } from './src/modules/invoices/invoices.module';
-import { ExpensesModule } from './src/modules/expenses/expenses.module';
-import { AiModule } from './src/modules/ai/ai.module';
-import { User } from './src/entities/user.entity';
-import { Invoice } from './src/entities/invoice.entity';
-import { Expense } from './src/entities/expense.entity';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { InvoicesModule } from './modules/invoices/invoices.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
+import { AiModule } from './modules/ai/ai.module';
+import { User } from './entities/user.entity';
+import { Invoice } from './entities/invoice.entity';
+import { Expense } from './entities/expense.entity';
 
 @Module({
   imports: [
